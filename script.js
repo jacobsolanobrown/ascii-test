@@ -52,7 +52,7 @@ img.onload = function() {
     // add an event listener to the slider to change the pixelation scale
     const slider = document.getElementById('pixelSlider');
     slider.addEventListener('input', function() {
-        // clear the canvas
+        // clear the canvas 
         ctx.clearRect(0, 0, w, h);
         // redraw the original image
         ctx.drawImage(img, 0, 0);
