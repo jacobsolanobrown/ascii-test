@@ -12,7 +12,7 @@
             font-family: 'Courier'; 
             font-size: 7pt;
             line-height: 6pt;
-            background-color: #924747;
+            background-color: #602424;
             color: #FFF;
         }
         .container {
@@ -66,7 +66,9 @@
     <div id="asciiOutput"></div>
     <!-- image input for scaling pixelation effect -->
     <input type="range" id="pixelSlider" min="1" max="10" value="10">
+    <button id="exportBtn">Export as Image</button>
     
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="ascii.js"></script>
 </body>
 </html>

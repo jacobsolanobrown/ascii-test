@@ -1,8 +1,9 @@
 // load an image
 let img = new Image();
-img.src = 'images/koyu.jpeg';
+img.src = 'images/image.png';
 let canvas = document.getElementById('myCanvas');
-const density = ['Ñ', '@', '#', 'w', '$', '9', '8', '7', '6', '5', '4', '3', '2', '1', '0', '?', '!', 'a', 'b', 'c', ';', ':', '+', '=', '-', ',', '.', '_', ' '];
+// to invert the ascii just invert the density array
+const density = [' ', '_', '.', ',', '-', '=', '+', ':', ';', 'c', 'b', 'a', '!', '?', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '$', 'w', '#', '@', 'Ñ'];
 
 // load the image to the canvas
 img.onload = function() {
@@ -49,11 +50,14 @@ img.onload = function() {
 
                 // calc density for ascii
                 let brightnessLevel = (red + green + blue) / 3;
+                console.log(brightnessLevel);
 
                 // map the the density (0-255) to the ascii characters array length so it chooses the correct brightness
                 let charIndex = Math.floor((brightnessLevel / 255) * (density.length - 1));
+                console.log('charIndex',charIndex);
                 // get the ascii character from the density array
                 let asciiChar = density[charIndex];
+                console.log(asciiChar);
                 
                 // add character to the current line
                 line += asciiChar;
@@ -67,7 +71,7 @@ img.onload = function() {
         }
     }
     // initial ascii conversion
-    toAscii(8);
+    toAscii(2);
 
     // add a event listener to the slider to change the ascii scale
     // const slider = document.getElementById('pixelSlider');
@@ -76,6 +80,25 @@ img.onload = function() {
     //     toAscii(parseInt(this.value));
     // });
 }
+
+// Export ASCII art as image
+document.getElementById('exportBtn').addEventListener('click', function() {
+    const asciiOutput = document.getElementById('asciiOutput');
+    html2canvas(asciiOutput, {
+        backgroundColor: '#602424',
+        scale: 2,  // Higher quality export
+        width: asciiOutput.scrollWidth,
+        height: asciiOutput.scrollHeight,
+        windowWidth: asciiOutput.scrollWidth,
+        windowHeight: asciiOutput.scrollHeight
+    }).then(canvas => {
+        // Convert canvas to downloadable image
+        const link = document.createElement('a');
+        link.download = 'ascii-art.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+});
 
 // Log when the script loads
 console.log('Script loaded successfully!');
