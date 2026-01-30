@@ -1,6 +1,21 @@
 // load an image
 let img = new Image();
-img.src = 'images/image.png';
+// change the image pathh once imgae uploaded 
+
+// use file api to load an image and convert it to ascii art
+document.getElementById('imageLoader').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) {
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        img.src = event.target.result;
+    }
+    reader.readAsDataURL(file);
+});
+
 let canvas = document.getElementById('myCanvas');
 // to invert the ascii just invert the density array
 const density = [' ', '_', '.', ',', '-', '=', '+', ':', ';', 'c', 'b', 'a', '!', '?', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '$', 'w', '#', '@', 'Ñ'];
@@ -81,11 +96,12 @@ img.onload = function() {
     // });
 }
 
-// Export ASCII art as image
+// Export ascii art as image // TODO: add parameters for saving image (transparency, scale, etc)
 document.getElementById('exportBtn').addEventListener('click', function() {
     const asciiOutput = document.getElementById('asciiOutput');
+    // use html2canvas to capture the ascii output
     html2canvas(asciiOutput, {
-        backgroundColor: '#602424',
+        backgroundColor: '#00000000',
         scale: 2,  // Higher quality export
         width: asciiOutput.scrollWidth,
         height: asciiOutput.scrollHeight,
