@@ -11,6 +11,7 @@ document.getElementById('imageLoader').addEventListener('change', function(e) {
 
     const reader = new FileReader();
     reader.onload = function(event) {
+
         img.src = event.target.result;
     }
     reader.readAsDataURL(file);
@@ -22,6 +23,8 @@ const density = [' ', '_', '.', ',', '-', '=', '+', ':', ';', 'c', 'b', 'a', '!'
 
 // load the image to the canvas
 img.onload = function() {
+
+
     // get the image dimensions
     w = img.width;
     h = img.height;
@@ -86,7 +89,7 @@ img.onload = function() {
         }
     }
     // initial ascii conversion
-    toAscii(2);
+    toAscii(8);
 
     // add a event listener to the slider to change the ascii scale
     // const slider = document.getElementById('pixelSlider');
